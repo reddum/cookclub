@@ -1,0 +1,87 @@
+.reciple_editor
+{
+	width: 350px;
+	height: 85px;
+	padding: 5px;
+	margin-bottom: 3px;
+	background-color: white;
+	clear: both;
+}
+.reciple_editor textarea
+{
+	margin: 0px;
+	padding: 0px;
+	width: 238px;
+	height: 80px;
+	border: solid 1px steelblue;
+	resize: none;
+}
+.reciple_editor div
+{
+	float: left;
+	margin: 2px;
+}
+
+.reciple_editor_panel
+{
+	width: 390px;
+	display: none;
+	margin-bottom: 3px;
+	background-color: lightgray
+}
+.reciple_editor_panel .rp_header 
+{
+  background: #aaa;
+  width: 380px;
+}
+.reciple_editor_panel .rp_leftcol 
+{
+  background: #aaa;
+  float: left;
+  width: 10px;
+  height: 95px;
+}
+.reciple_editor_panel .rp_content 
+{
+  background: #fff;
+  float: left;
+  width: 360px;
+  height: 95px;
+}
+.reciple_editor_panel .rp_rightcol 
+{
+  background: #aaa;
+  float: left;
+  width: 10px;
+  height: 95px;
+}
+.reciple_editor_panel .rp_footer 
+{
+  background: #aaa;
+  clear: both;
+  height: 10px;
+  width: 380px;
+}
+
+.reciple_editor_panel_left img
+{
+	align: center;
+	margin: 2px;
+	border: 0px;
+}
+
+.placeholder {
+	background-color: lightblue;
+	border: 1px dashed #666;
+	width: 350px;
+	height: 100px;
+}
+
+img {
+	border: 0px;
+}
+
+.imgptr
+{
+cursor:pointer
+}

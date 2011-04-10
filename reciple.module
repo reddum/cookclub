@@ -1,0 +1,230 @@
+<?php
+// $Id: blog.module,v 1.362 2010/11/14 21:04:45 webchick Exp $
+
+function reciple_menu_alter(&$items)
+{
+	$items['add_reciple'] = array(
+		'title'				=>	t('Add Reciple'),
+		'page callback'		=>	'_reciple_add_reciple',
+		'access callback'	=>	TRUE,
+		'type'				=>	MENU_NORMAL_ITEM,
+		'weight'			=>	-10,
+	);
+}
+
+function _reciple_add_reciple()
+{
+	drupal_goto('node/add/reciple');
+}
+
+/**
+ * Implements hook_node_info().
+ */
+function reciple_node_info() {
+	return array(
+		'reciple' => array(
+			'name' 			=>	t('Reciple'),
+			'base' 			=>	'reciple',
+			'description' 	=>	t('Reciple Node.'),
+			'has_title' 	=> 	TRUE,
+			'title_label'	=>	t('Reciple'),
+			'help'			=>	t('Help of Reciple'),
+		),
+    );
+}
+
+/**
+ * Implements hook_view().
+ */
+function reciple_view($node, $view_mode)
+{
+	$variables = array(
+		'materials'	=>	'bbb',
+		'steps'	=>	'ccc',
+	);
+	
+	if ($view_mode == 'full')
+	{
+		$node->content['main'] = array(
+			'#markup' => theme('recipe_full_viewer', $variables),
+			'#weight' => 100,
+		);
+	}
+	else 
+	{
+		$node->content['main'] = array(
+			'#markup' => theme('recipe_simple_viewer', $variables),
+			'#weight' => 100,
+		);
+	}
+	
+	return $node;
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function reciple_node_view($node, $view_mode)
+{
+	// useless, need to figure out.
+}
+
+/**
+ * Implements hook_theme().
+ */
+function reciple_theme()
+{
+	$variables = array('materials' => NULL, 'steps' => NULL);
+	
+	return array(
+		'recipe_editor' => array(
+			'variables' => $variables,
+			'template' => 'tpl/editor',
+		),
+		'recipe_full_viewer' => array(
+			'variables' => $variables,
+			'template' => 'tpl/fullviewer',
+		),
+		'recipe_simple_viewer' => array(
+			'variables' => array('materials' => NULL, 'steps' => NULL),
+			'template' => 'tpl/simpleviewer',
+		),		
+	);
+}
+
+/**
+ * Implements hook_form().
+ */
+function reciple_form($node, $form_state)
+{
+	
+	$form['title'] = array(
+		'#title'		=>	t('Title'),
+		'#type'			=>	'textfield',
+		'#required'		=>	TRUE, 
+		'#weight'		=>	-5,
+		'#value'		=>	$node->title,
+	);
+	
+	$variables = array(
+		'materials'	=>	'aaa',
+		'steps'	=>		'bbb',
+	);	
+	
+	$form['content'] = array(
+		'#markup' => theme('recipe_editor', $variables),
+		'#weight' => -4,
+	);	
+
+	return $form;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function reciple_form_alter(&$form, &$form_state, $form_id)
+{
+	// remove unnecessary items.
+	if ($form_id == 'reciple_node_form')
+	{
+		unset($form['body']);
+		unset($form['additional_settings']);
+		unset($form['author']);
+		unset($form['options']);
+		unset($form['revision_information']);
+		unset($form['comment_settings']);
+		
+		$form['actions']['submit']['#value'] = t('Save You Reciple');
+	}
+}
+
+/**
+ * Implements hook_node_submit().
+ */
+function reciple_node_submit($node, $form, &$form_state)
+{
+	// should I check the node type?.	
+	// unable to get modified value after modification.
+	
+	// fetech attributes for storage.
+	/*
+	$node->title = $form_state['input']['title'];
+	$node->materials = $form_state['input']['materials'];
+	$node->steps = $form_state['input']['steps'];
+	*/
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function reciple_node_access($op, $node, $account)
+{
+	// temporary.
+	return NODE_ACCESS_ALLOW;
+}
+
+/**
+ * Implements hook_load().
+ */
+function reciple_load($nodes)
+{
+	/*
+	$result = db_query('SELECT nid, materials, steps FROM {pj_cookbook} WHERE nid IN (:nids)', array(':nids' => array_keys($nodes)));
+	
+	foreach ($nodes as $node)
+	{
+		$node->materials = NULL;
+		$node->steps = NULL;
+	}
+	
+	foreach ($result as $record)
+	{
+		$node = $nodes[$record->nid];
+		$node->materials = $record->materials;
+		$node->steps = $record->steps;
+	}	
+
+	return $nodes;
+	*/
+	
+	return $nodes;
+}
+
+/**
+ * Implements hook_insert().
+ */
+function reciple_insert($node)
+{
+	// insert script.
+}
+
+/**
+ * Implements hook_update().
+ */
+function reciple_update($node)
+{
+	// update script.
+}
+
+/**
+ * Implements hook_delete().
+ */
+function reciple_delete($node)
+{
+	// delete script.
+}
+
+/**
+ * dump variable.
+ */
+function _reciple_dump_var($var)
+{
+	ob_start();
+  	var_dump($var);
+  	$dump = ob_get_clean();
+  	ob_end_flush();	
+
+  	return $dump;
+}
+

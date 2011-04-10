@@ -1,0 +1,36 @@
+.reciple_view_title
+{
+	font-family: Arial;
+	font-size: 18pt;
+	font-weight: bold;
+}
+
+.reciple_view_abs
+{
+	font-family: Arial;
+	font-size: 11pt;
+	line-height: 140%;
+}
+
+.reciple_view_abs_first
+{
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.reciple_view_section_title
+{
+	font-family: Arial;
+	font-size: 13pt;
+	font-weight: bold;	
+}
+
+.reciple_view_steps_number
+{
+	font-family: Arial;
+	font-size: 26pt;
+	//font-weight: bold;	
+	color: #999999;
+	float: left;
+	padding: 3px 5px 3px 0px;
+}
